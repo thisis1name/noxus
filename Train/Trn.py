@@ -28,8 +28,8 @@ class Trn:
         print(self.current_Time)
 
     def HCCX(self):
-        print('当前系统时间' + self.gettime(self.current_Time))
-        print('候车人数' + str(len(self.passengers_Waiting)))
+        print('当前系统时间: ' + self.gettime(self.current_Time))
+        print('候车人数: ' + str(len(self.passengers_Waiting)))
         print('候车乘客:')
         for passenger in self.passengers_Waiting:
             print(passenger.Passenger_Id)
@@ -108,7 +108,7 @@ class Trn:
         isarrived = 0
         for passenger in self.passengers_Arrived:
             if passenger.Passenger_Id == id_temp:
-                print('系统当前时间' + self.gettime(self.current_Time))
+                print('系统当前时间: ' + self.gettime(self.current_Time))
                 print('乘客编号: ' + str(passenger.Passenger_Id))
                 print('上车站点: ' + str(passenger.site_Start))
                 print('下车站点: ' + str(passenger.site_End))
