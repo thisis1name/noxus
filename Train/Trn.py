@@ -117,7 +117,7 @@ class Trn:
                 print('下车时刻: ' + self.gettime(passenger.time_Ending))
                 print('乘车里程: ' + str(passenger.mileage))
                 print('停车等候时间: ' + str(passenger.time_Waiting) + '分钟')
-                print('金额" ' + str(passenger.cost))
+                print('金额: ' + str(passenger.cost))
                 isarrived = 1
         if isarrived == 0:
             print('未查到该乘客或还未下车')
@@ -129,13 +129,13 @@ class Trn:
         # print('当前位置: ' + str(self.location) + '---' + str(self.location))
         print('当前状态: ' + ('停车等候' if self.sites[self.location].iswaiting else '匀速行驶'))
         print('当前乘客人数: ' + str(len(self.passengers)))
-        print('行驶.总里程: ' + str(self.milleage))
+        print('行驶总里程: ' + str(self.milleage))
         print('当前总收入: ' + str(self.income))
 
     def getincome(self):
         self.income = 0
         for passenger in self.passengers:
-            mileage = passenger.mileage + passenger.time_Waiting / 5
+            mileage = passenger.mileage + int(passenger.time_Waiting / 5)
             if mileage > 10:
                 passenger.cost = 10 + (mileage - 10) * 1.5
             else:
@@ -171,7 +171,8 @@ class Trn:
     def getin_waiting(self, site):
         passenger_temp = []
         for passenger in self.passengers_Waiting:
-            if passenger.site_Start == site.site_From and passenger.direction == site.direction:
+            if passenger.site_Start == site.site_From and passenger.direction == site.direction \
+                    and passenger.time_Starting < site.time_arrive:
                 self.passengers.append(passenger)
                 passenger_temp.append(passenger)
                 passenger.time_intrain = passenger.time_Starting

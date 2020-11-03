@@ -14,8 +14,8 @@ def printcommands():
     print('仅设定系统时间  SETTIME 07:30')
 
 
+printcommands()
 while 1:
-    printcommands()
     command = input('输入命令:  ')
     command = command.upper()
     if command == 'INIT':
@@ -28,6 +28,7 @@ while 1:
             if time > train.current_Time:
                 train.settime(time)
                 train.getincome()
+                print('操作成功')
         else:
             print('指令错误')
     elif command == 'HCCX':
