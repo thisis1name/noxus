@@ -45,8 +45,8 @@ class Trn:
             if passenger.direction > 0:
                 passenger.direction = 1
             else:
-                passenger.directiono = -1
-            if time == self.current_Time or self.current_Time == 730 and time < 730 \
+                passenger.direction = -1
+            if time == (self.current_Time or self.current_Time == 730) and time < 730 \
                     and ((time % 10) == 0) and (passenger.direction == self.sites[self.location].direction
                          and passenger.site_Start == self.sites[self.location].site_From):  # 判断是否可以直接上车
                 passenger.time_intrain = self.current_Time
@@ -78,7 +78,7 @@ class Trn:
                     if time >= site.time_arrive:
                         for passenger in self.passengers:
                             if passenger.site_Start == site.site_From:
-                                passenger.time_Waiting = self.getduration(site.time_arrive, passenger.time_Starting)
+                                passenger.time_Waiting = self.getduration(site.time_arrive, passenger.time_intrain)
                             else:
                                 passenger.time_Waiting += self.getduration(site.time_arrive, self.current_Time)
                         self.current_Time = site.time_arrive
@@ -94,9 +94,10 @@ class Trn:
             if self.location > len(self.sites) - 1:
                 self.location = len(self.sites) - 1
         else:
-            self.settime(2129)
-            for passenger in self.passengers:
+            if self.current_Time < 2130:
+                self.settime(2129)
                 self.milleage += 1
+            for passenger in self.passengers:
                 passenger.mileage += 1
                 passenger.time_Ending = 2130
                 self.passengers_Arrived.append(passenger)
@@ -148,7 +149,8 @@ class Trn:
     def getin_running(self, site):
         passenger_temp = []
         for passenger in self.passengers_Waiting:  # 是否上车
-            if passenger.site_Start == site.site_To and passenger.direction == site.direction:
+            if passenger.site_Start == site.site_To and passenger.direction == site.direction \
+                    and passenger.time_Starting <= site.time_arrive:
                 self.passengers.append(passenger)
                 passenger_temp.append(passenger)
                 passenger.time_intrain = site.time_arrive

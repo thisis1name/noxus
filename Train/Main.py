@@ -7,6 +7,16 @@ while 1:
     command = command.upper()
     if command == 'INIT':
         train.init()
+    elif command.startswith('SETTIME'):
+        strs = command.split(' ')
+        if len(strs) == 2:
+            times = strs[1].split(':')
+            time = int(times[0]) * 100 + int(times[1])
+            if time > train.current_Time:
+                train.settime(time)
+                train.getincome()
+        else:
+            print('指令错误')
     elif command == 'HCCX':
         train.HCCX()
     elif command == 'HCZT':
@@ -29,5 +39,3 @@ while 1:
         break
     else:
         print('指令错误!')
-
-

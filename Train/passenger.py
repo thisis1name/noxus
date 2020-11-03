@@ -1,4 +1,4 @@
-class Passenger :
+class Passenger:
     Passenger_Id = ''
     site_Start = ''
     site_End = ''
@@ -10,7 +10,7 @@ class Passenger :
     direction = 0
     time_intrain = 0
 
-    def __init__(self, id , time_Starting, site_Start, site_End):
+    def __init__(self, id, time_Starting, site_Start, site_End):
         self.Passenger_Id = id
         self.site_Start = site_Start
         self.site_End = site_End
