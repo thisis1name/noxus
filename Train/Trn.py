@@ -44,7 +44,7 @@ class Trn:
             passenger.directiono = -1
         if time == self.current_Time or self.current_Time == 730 and time < 730 \
                 and ((time % 10) == 0 or self.sites[self.location].iswaiting == 1) \
-                and (passenger.direction == self.sites[self.location].direction \
+                and (passenger.direction == self.sites[self.location].direction
                      and passenger.site_Start == self.sites[self.location].site_From):  # 判断是否可以直接上车
             self.passengers.append(passenger)
         else:
@@ -55,23 +55,29 @@ class Trn:
         print('操作成功')
 
     def settime(self, time):
+        passenger_temp = []
         if time < 2130:
             for site in self.sites[self.location:]:
                 if site.iswaiting == 0:  # 没在停车
                     if time >= site.time_arrive:  # 可以过站
                         self.milleage += site.time_arrive - self.current_Time
+                        passenger_temp.clear()
                         for passenger in self.passengers:  # 是否下车
                             passenger.mileage += site.time_arrive - self.current_Time
                             if passenger.site_End == site.site_To:
                                 self.passengers_Arrived.append(passenger)
-                                self.passengers.remove(passenger)
+                                passenger_temp.append(passenger)
                                 passenger.time_Ending = site.time_arrive
+                        for passenger in passenger_temp:
+                            self.passengers.remove(passenger)
+                        passenger_temp.clear()
                         for passenger in self.passengers_Waiting:  # 是否上车
                             if passenger.site_Start == site.site_To and passenger.direction == site.direction:
                                 self.passengers.append(passenger)
-                                self.passengers_Waiting.remove(passenger)
+                                passenger_temp.append(passenger)
                                 passenger.time_intrain = site.time_arrive
-                                passenger.time_intrain = site.time_arrive
+                        for passenger in passenger_temp:
+                            self.passengers.remove(passenger)
                         self.current_Time = site.time_arrive
                     else:  # 未能过站
                         self.milleage += time - self.current_Time
@@ -118,10 +124,10 @@ class Trn:
                 self.passengers.remove(passenger)
             self.current_Time = time
 
-    def CXZD(self, id):
+    def CXZD(self, id_temp):
         isarrived = 0
         for passenger in self.passengers_Arrived:
-            if passenger.Passenger_Id == id:
+            if passenger.Passenger_Id == id_temp:
                 print('系统当前时间' + self.current_Time)
                 print('乘客编号: ' + passenger.Passenger_Id)
                 print('上车站点: ' + passenger.site_Start)
@@ -149,12 +155,12 @@ class Trn:
         self.income = 0
         for passenger in self.passengers:
             mileage = passenger.mileage + passenger.time_Waiting / 5
-            if passenger.mileage > 10:
-                passenger.cost = 10 + (passenger.mileage - 10) * 1.5
+            if mileage > 10:
+                passenger.cost = 10 + (mileage - 10) * 1.5
             else:
                 passenger.cost = 10
             self.income += passenger.cost
         for passenger in self.passengers_Arrived:
             mileage = passenger.mileage + passenger.time_Waiting / 5
-            passenger.cost = 10 + (passenger.mileage - 10) * 1.5
+            passenger.cost = 10 + (mileage - 10) * 1.5
             self.income += passenger.cost
