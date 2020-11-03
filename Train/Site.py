@@ -6,6 +6,7 @@ SITES.append('WB')
 
 waiting = (1310, 1440, 1610, 1640, 1910, 1940, 2010)
 
+
 class Site:
     site_From = ''
     site_To = ''
@@ -29,7 +30,7 @@ def getSites():
             if time > 2130:
                 break
             if waiting.count(time) > 0:
-                sites.append(Site(time, SITES[i], SITES[i + 1],1, 1))
+                sites.append(Site(time, SITES[i], SITES[i + 1], 1, 1))
                 time += 10
                 if time % 100 == 60:
                     time += 100
@@ -40,7 +41,7 @@ def getSites():
             if time % 100 == 60:
                 time += 100
                 time -= 60
-        for i in range(11,0,-1):
+        for i in range(11, 0, -1):
             if time > 2130:
                 break
             if waiting.count(time) > 0:
@@ -55,5 +56,7 @@ def getSites():
             if time % 100 == 60:
                 time += 100
                 time -= 60
+    # for site in sites:
+    #     print(site.time_arrive)
+    #     print(site.site_From + '---' + site.site_To)
     return sites
-

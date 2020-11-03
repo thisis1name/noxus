@@ -25,7 +25,7 @@ while 1:
             train.CXZD(strs[1])
         else:
             print('指令错误!')
-    elif command == 'Exit' or command == 'exit':
+    elif command == 'EXIT':
         break
     else:
         print('指令错误!')
