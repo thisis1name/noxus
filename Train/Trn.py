@@ -129,7 +129,7 @@ class Trn:
         # print('当前位置: ' + str(self.location) + '---' + str(self.location))
         print('当前状态: ' + ('停车等候' if self.sites[self.location].iswaiting else '匀速行驶'))
         print('当前乘客人数: ' + str(len(self.passengers)))
-        print('形式总里程: ' + str(self.milleage))
+        print('行驶.总里程: ' + str(self.milleage))
         print('当前总收入: ' + str(self.income))
 
     def getincome(self):
@@ -150,7 +150,7 @@ class Trn:
         passenger_temp = []
         for passenger in self.passengers_Waiting:  # 是否上车
             if passenger.site_Start == site.site_To and passenger.direction == site.direction \
-                    and passenger.time_Starting <= site.time_arrive:
+                    and passenger.time_Starting <= site.time_arrive and len(self.passengers) < 20:
                 self.passengers.append(passenger)
                 passenger_temp.append(passenger)
                 passenger.time_intrain = site.time_arrive

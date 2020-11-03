@@ -2,8 +2,21 @@ from Train.Trn import *
 from Train.passenger import *
 
 train = Trn()
+
+
+def printcommands():
+    print('指令示例(不区分大小写)')
+    print('初始化 Init')
+    print('候车命令  HC CK01 07:20 WA W4')
+    print('查询以下车的乘客账单 CXZD CK01')
+    print('火车状态查询  HCZD')
+    print('候车查询  HCCX')
+    print('仅设定系统时间  SETTIME 07:30')
+
+
 while 1:
-    command = input('输入命令')
+    printcommands()
+    command = input('输入命令:  ')
     command = command.upper()
     if command == 'INIT':
         train.init()

@@ -62,9 +62,9 @@ def getSites():
             if time % 100 == 60:
                 time += 100
                 time -= 60
-    for site in sites:
-        print(site.time_arrive)
-        print(site.site_From + '---' + site.site_To)
-        print(site.direction)
-        print(site.iswaiting)
+    # for site in sites:
+    #     print(site.time_arrive)
+    #     print(site.site_From + '---' + site.site_To)
+    #     print(site.direction)
+    #     print(site.iswaiting)
     return sites
