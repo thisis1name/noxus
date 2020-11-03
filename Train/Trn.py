@@ -19,7 +19,6 @@ class Trn:
         self.passengers.clear()
         self.passengers_Waiting.clear()
         self.passengers_Arrived.clear()
-        self.sites = []
         self.location = 0
         self.milleage = 0
         self.income = 0.0
@@ -48,9 +47,9 @@ class Trn:
             else:
                 passenger.directiono = -1
             if time == self.current_Time or self.current_Time == 730 and time < 730 \
-                    and ((time % 10) == 0 or self.sites[self.location].iswaiting == 1) \
-                    and (passenger.direction == self.sites[self.location].direction
+                    and ((time % 10) == 0) and (passenger.direction == self.sites[self.location].direction
                          and passenger.site_Start == self.sites[self.location].site_From):  # 判断是否可以直接上车
+                passenger.time_intrain = self.current_Time
                 self.passengers.append(passenger)
             else:
                 self.passengers_Waiting.append(passenger)
@@ -120,7 +119,7 @@ class Trn:
                 print('金额" ' + str(passenger.cost))
                 isarrived = 1
         if isarrived == 0:
-            print('未查到该乘客')
+            print('未查到该乘客或还未下车')
         return
 
     def HCZT(self):
@@ -154,7 +153,7 @@ class Trn:
                 passenger_temp.append(passenger)
                 passenger.time_intrain = site.time_arrive
         for passenger in passenger_temp:
-            self.passengers.remove(passenger)
+            self.passengers_Waiting.remove(passenger)
 
     def getout_running(self, site):
         passenger_temp = []
@@ -175,7 +174,7 @@ class Trn:
                 passenger_temp.append(passenger)
                 passenger.time_intrain = passenger.time_Starting
         for passenger in passenger_temp:
-            self.passengers.remove(passenger)
+            self.passengers_Waiting.remove(passenger)
 
     @staticmethod
     def getduration(time_now, time_ago):

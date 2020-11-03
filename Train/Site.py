@@ -27,31 +27,37 @@ def getSites():
     time = 740
     while time <= 2130:
         for i in range(11):
+            if i == 10:
+                direction = -1
+            else:
+                direction = 1
             if time > 2130:
                 break
             if waiting.count(time) > 0:
-                sites.append(Site(time, SITES[i], SITES[i + 1], 1, 1))
+                sites.append(Site(time, SITES[i], SITES[i + 1], 1, direction))
                 time += 10
                 if time % 100 == 60:
                     time += 100
                     time -= 60
-            else:
-                sites.append(Site(time, SITES[i], SITES[i + 1], 0, 1))
+            sites.append(Site(time, SITES[i], SITES[i + 1], 0, direction))
             time += 10
             if time % 100 == 60:
                 time += 100
                 time -= 60
         for i in range(11, 0, -1):
+            if i == 1:
+                direction = 1
+            else:
+                direction = -1
             if time > 2130:
                 break
             if waiting.count(time) > 0:
-                sites.append(Site(time, SITES[i], SITES[i - 1], 1, 1))
+                sites.append(Site(time, SITES[i], SITES[i - 1], 1, direction))
                 time += 10
                 if time % 100 == 60:
                     time += 100
                     time -= 60
-            else:
-                sites.append(Site(time, SITES[i], SITES[i - 1], 0, -1))
+            sites.append(Site(time, SITES[i], SITES[i - 1], 0, direction))
             time += 10
             if time % 100 == 60:
                 time += 100
@@ -59,4 +65,6 @@ def getSites():
     # for site in sites:
     #     print(site.time_arrive)
     #     print(site.site_From + '---' + site.site_To)
+    #     print(site.direction)
+    #     print(site.iswaiting)
     return sites
