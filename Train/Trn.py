@@ -46,7 +46,7 @@ class Trn:
                 passenger.direction = 1
             else:
                 passenger.direction = -1
-            if time == (self.current_Time or self.current_Time == 730) and time < 730 \
+            if (time == self.current_Time or self.current_Time == 730) and time < 730 \
                     and ((time % 10) == 0) and (passenger.direction == self.sites[self.location].direction
                          and passenger.site_Start == self.sites[self.location].site_From):  # 判断是否可以直接上车
                 passenger.time_intrain = self.current_Time
